@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:ESTabViewDemo.xcodeproj">
+      location = "self:ESTabView.xcodeproj">
    </FileRef>
 </Workspace>

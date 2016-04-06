@@ -24,7 +24,7 @@
 //@property (strong, nonatomic) UIColor *barTintColor;
 //@property (strong, nonatomic) UIColor *selectedTintColor;
 
-
+@property (strong, nonatomic) NSMutableArray<NSString *> *titles;
 
 @property (assign, nonatomic) NSInteger selectedIndex;
 

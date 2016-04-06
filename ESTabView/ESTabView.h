@@ -27,10 +27,14 @@
  */
 @property (strong, nonatomic) ESTabBar *tabBar;
 
+@property (strong, nonatomic) NSMutableArray<__kindof UIView *> *views;
+
 /**
  *  <#Description#>
  */
 @property (assign, nonatomic, readonly) NSInteger currentIndex;
+
+@property (strong, nonatomic) __kindof UIView *currentContentView;
 
 @property (weak, nonatomic) id<ESTabViewDelegate> delegate;
 

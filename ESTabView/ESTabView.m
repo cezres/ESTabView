@@ -10,6 +10,8 @@
 
 #define TabBarHeight 38.0
 
+#define ColorRGB(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0]
+
 @interface ESTabView ()
 <
 ESTabBarDelegate,
@@ -22,7 +24,7 @@ UIScrollViewDelegate
     
 }
 
-@property (strong, nonatomic) NSMutableArray<__kindof UIView *> *views;
+
 
 @property (strong, nonatomic) UIScrollView *scrollView;
 
@@ -33,6 +35,7 @@ UIScrollViewDelegate
 - (instancetype)initWithFrame:(CGRect)frame; {
     if (self = [super initWithFrame:frame]) {
         _currentIndex = -1;
+        
     }
     return self;
 }
@@ -41,6 +44,7 @@ UIScrollViewDelegate
     if (index >= _views.count) {
         return;
     }
+    _currentIndex = -1;
     self.currentIndex = index;
     [self.scrollView setContentOffset:CGPointMake(_currentIndex * self.scrollView.frame.size.width, 0) animated:YES];
 }
@@ -54,6 +58,14 @@ UIScrollViewDelegate
     }
 }
 
+- (__kindof UIView *)currentContentView; {
+    if (self.currentIndex >= self.views.count) {
+        return NULL;
+    }
+    else {
+        return self.views[self.currentIndex];
+    }
+}
 
 - (void)setCurrentIndex:(NSInteger)currentIndex; {
     if (_currentIndex == currentIndex) {
@@ -90,7 +102,6 @@ UIScrollViewDelegate
     if (views.count != titles.count) {
         return;
     }
-    self.currentIndex = _currentIndex==-1? 0:_currentIndex;
     
     [self.views removeAllObjects];
     [_views addObjectsFromArray:views];
@@ -108,12 +119,11 @@ UIScrollViewDelegate
     
     _size = CGSizeZero;
     [self setNeedsLayout];
-}
-- (void)insertItemWithView:(__kindof UIView *)view title:(NSString *)title atIndex:(NSUInteger)index; {
-    NSInteger _index = _currentIndex;
-    _currentIndex = -1;
-    self.currentIndex = _index;
     
+    self.currentIndex = _currentIndex==-1? 0:_currentIndex;
+}
+
+- (void)insertItemWithView:(__kindof UIView *)view title:(NSString *)title atIndex:(NSUInteger)index; {
     [_views insertObject:view atIndex:index];
     [_scrollView addSubview:view];
     
@@ -126,11 +136,11 @@ UIScrollViewDelegate
     if (self.currentIndex == index) {
         [self moveToIndex:0 animated:NO];
     }
-    else {
-        NSInteger _index = _currentIndex;
-        _currentIndex = -1;
-        self.currentIndex = _index;
-    }
+//    else {
+//        NSInteger _index = _currentIndex;
+//        _currentIndex = -1;
+//        self.currentIndex = _index;
+//    }
     
     [_views[index] removeFromSuperview];
     [_views removeObjectAtIndex:index];
@@ -189,7 +199,7 @@ UIScrollViewDelegate
 - (ESTabBar *)tabBar; {
     if (!_tabBar) {
         _tabBar = [[ESTabBar alloc] init];
-        _tabBar.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1];
+        _tabBar.backgroundColor = ColorRGB(255, 255, 255);
         _tabBar.tabbarDelegate = self;
         [self addSubview:_tabBar];
     }

@@ -8,13 +8,15 @@
 
 #import "ESTabBar.h"
 
+#define ColorRGB(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0]
+
 @interface ESTabBar ()
 {
     CGSize _size;
 }
 
 @property (strong, nonatomic) NSMutableArray<UIButton *> *buttons;
-@property (strong, nonatomic) NSMutableArray<NSString *> *titles;
+
 
 @end
 
@@ -48,21 +50,40 @@
     _selectedIndex = selectedIndex;
     
     
+    for (UIButton *button in self.buttons) {
+        if (button.tag == selectedIndex) {
+            [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        }
+        else {
+            [button setTitleColor:[UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0] forState:UIControlStateNormal];
+        }
+    }
     
-    NSInteger moveIndex = selectedIndex;
-    if (self.buttons[selectedIndex].center.x - self.contentOffset.x > self.frame.size.width/2) {
-        if (moveIndex+2 < self.buttons.count)
-            moveIndex += 2;
-        else if (moveIndex+1 < self.buttons.count)
-            moveIndex += 1;
+    
+    if (_selectedIndex == 0) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self setContentOffset:CGPointZero animated:YES];
+        });
     }
     else {
-        if (moveIndex-2 >= 0)
-            moveIndex -= 2;
-        else if (moveIndex-1 >= 0)
-            moveIndex -= 1;
+        NSInteger moveIndex = selectedIndex;
+        if (self.buttons[selectedIndex].center.x - self.contentOffset.x > self.frame.size.width/2) {
+            if (moveIndex+2 < self.buttons.count)
+                moveIndex += 2;
+            else if (moveIndex+1 < self.buttons.count)
+                moveIndex += 1;
+        }
+        else {
+            if (moveIndex-2 >= 0)
+                moveIndex -= 2;
+            else if (moveIndex-1 >= 0)
+                moveIndex -= 1;
+        }
+        [self scrollRectToVisible:self.buttons[moveIndex].frame animated:YES];
     }
-    [self scrollRectToVisible:self.buttons[moveIndex].frame animated:YES];
+    
+    
+    
     
     
     CGFloat width = [self.buttons[_selectedIndex].titleLabel.text boundingRectWithSize:CGSizeMake(99999, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: self.buttons[_selectedIndex].titleLabel.font} context:NULL].size.width;
@@ -85,6 +106,8 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
         button.titleLabel.font = [UIFont fontWithName:@"ArialMT" size:14];
         [button addTarget:self action:@selector(selectedItem:) forControlEvents:UIControlEventTouchUpInside];
+        [button setTitleColor:ColorRGB(153,153,153) forState:UIControlStateNormal];
+        
         [self addSubview:button];
         [self.buttons addObject:button];
     }
@@ -98,6 +121,11 @@
     
     _size = CGSizeZero;
     [self setNeedsLayout];
+    
+    
+//    NSInteger index = _selectedIndex;
+//    _selectedIndex = -1;
+//    self.selectedIndex = index;
 }
 - (void)insertTabWithTitle:(NSString *)title atIndex:(NSUInteger)index; {
     [self.titles insertObject:title atIndex:index];
@@ -105,6 +133,8 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
     button.titleLabel.font = [UIFont fontWithName:@"ArialMT" size:14];
     [button addTarget:self action:@selector(selectedItem:) forControlEvents:UIControlEventTouchUpInside];
+    [button setTitleColor:ColorRGB(153,153,153) forState:UIControlStateNormal];
+    
     [self addSubview:button];
     [self.buttons insertObject:button atIndex:index];
     
@@ -117,6 +147,8 @@
     [self.titles removeObjectAtIndex:index];
     [self.buttons[index] removeFromSuperview];
     [self.buttons removeObjectAtIndex:index];
+    
+    [self setUpTitle];
     
     _size = CGSizeZero;
     [self setNeedsLayout];
@@ -137,13 +169,16 @@
     if (CGSizeEqualToSize(self.bounds.size, _size)) {
         return;
     }
+    if ([_buttons count] == 0) {
+        return;
+    }
     
     _size = self.bounds.size;
     
     if (self.buttons.count > 5) {
         CGFloat x = 0;
         for (UIButton *button in _buttons) {
-            CGFloat width = [button.titleLabel.text boundingRectWithSize:CGSizeMake(99999, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: button.titleLabel.font} context:NULL].size.width + 40;
+            CGFloat width = [self.titles[button.tag] boundingRectWithSize:CGSizeMake(99999, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: button.titleLabel.font} context:NULL].size.width + 20;
             button.frame = CGRectMake(x, 0, width, self.frame.size.height);
             x = button.frame.origin.x + width;
         }
@@ -162,6 +197,7 @@
     if (_selectedIndex >= _buttons.count) {
         self.selectedIndex = _buttons.count-1;
     }
+    
     
     CGFloat width = [_buttons[_selectedIndex].titleLabel.text boundingRectWithSize:CGSizeMake(9999, 16) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: _buttons[_selectedIndex].titleLabel.font} context:NULL].size.width;
     self.line.frame = CGRectMake(_buttons[_selectedIndex].frame.origin.x + (_buttons[_selectedIndex].frame.size.width - width)/2, self.frame.size.height-2, width, 2);
