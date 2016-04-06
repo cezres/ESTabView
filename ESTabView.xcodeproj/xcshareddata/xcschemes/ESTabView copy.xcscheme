@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6E4DCD9E1CB49BC2009F5F7D"
-               BuildableName = "ESTabView.framework"
-               BlueprintName = "ESTabView"
+               BlueprintIdentifier = "6EA89FBC1CB53B740024854D"
+               BuildableName = "ESTabView_Carthage.framework"
+               BlueprintName = "ESTabView_Carthage"
                ReferencedContainer = "container:ESTabView.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6E4DCD9E1CB49BC2009F5F7D"
-            BuildableName = "ESTabView.framework"
-            BlueprintName = "ESTabView"
+            BlueprintIdentifier = "6EA89FBC1CB53B740024854D"
+            BuildableName = "ESTabView_Carthage.framework"
+            BlueprintName = "ESTabView_Carthage"
             ReferencedContainer = "container:ESTabView.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -63,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6E4DCD9E1CB49BC2009F5F7D"
-            BuildableName = "ESTabView.framework"
-            BlueprintName = "ESTabView"
+            BlueprintIdentifier = "6EA89FBC1CB53B740024854D"
+            BuildableName = "ESTabView_Carthage.framework"
+            BlueprintName = "ESTabView_Carthage"
             ReferencedContainer = "container:ESTabView.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
