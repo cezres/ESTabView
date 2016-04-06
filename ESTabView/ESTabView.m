@@ -136,11 +136,6 @@ UIScrollViewDelegate
     if (self.currentIndex == index) {
         [self moveToIndex:0 animated:NO];
     }
-//    else {
-//        NSInteger _index = _currentIndex;
-//        _currentIndex = -1;
-//        self.currentIndex = _index;
-//    }
     
     [_views[index] removeFromSuperview];
     [_views removeObjectAtIndex:index];

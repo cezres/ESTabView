@@ -11,6 +11,8 @@
 		6EA5AF231CB52CCB001A053F /* ESTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EA5AF1F1CB52CCB001A053F /* ESTabBar.m */; };
 		6EA5AF241CB52CCB001A053F /* ESTabView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6EA5AF201CB52CCB001A053F /* ESTabView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6EA5AF251CB52CCB001A053F /* ESTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EA5AF211CB52CCB001A053F /* ESTabView.m */; };
+		6EA5AF281CB5344F001A053F /* Categroy.h in Headers */ = {isa = PBXBuildFile; fileRef = 6EA5AF261CB5344F001A053F /* Categroy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6EA5AF291CB5344F001A053F /* Categroy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EA5AF271CB5344F001A053F /* Categroy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,8 @@
 		6EA5AF1F1CB52CCB001A053F /* ESTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESTabBar.m; sourceTree = "<group>"; };
 		6EA5AF201CB52CCB001A053F /* ESTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESTabView.h; sourceTree = "<group>"; };
 		6EA5AF211CB52CCB001A053F /* ESTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESTabView.m; sourceTree = "<group>"; };
+		6EA5AF261CB5344F001A053F /* Categroy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Categroy.h; sourceTree = "<group>"; };
+		6EA5AF271CB5344F001A053F /* Categroy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Categroy.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +60,8 @@
 				6EA5AF1F1CB52CCB001A053F /* ESTabBar.m */,
 				6EA5AF201CB52CCB001A053F /* ESTabView.h */,
 				6EA5AF211CB52CCB001A053F /* ESTabView.m */,
+				6EA5AF261CB5344F001A053F /* Categroy.h */,
+				6EA5AF271CB5344F001A053F /* Categroy.m */,
 				6E4DCDA41CB49BC2009F5F7D /* Info.plist */,
 			);
 			path = ESTabView;
@@ -69,6 +75,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6EA5AF221CB52CCB001A053F /* ESTabBar.h in Headers */,
+				6EA5AF281CB5344F001A053F /* Categroy.h in Headers */,
 				6EA5AF241CB52CCB001A053F /* ESTabView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -141,6 +148,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6EA5AF251CB52CCB001A053F /* ESTabView.m in Sources */,
+				6EA5AF291CB5344F001A053F /* Categroy.m in Sources */,
 				6EA5AF231CB52CCB001A053F /* ESTabBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
