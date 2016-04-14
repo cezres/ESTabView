@@ -1,8 +1,8 @@
 //
 //  AppDelegate.h
-//  Example
+//  ESTabView Example
 //
-//  Created by 翟泉 on 16/4/6.
+//  Created by 翟泉 on 16/4/14.
 //  Copyright © 2016年 云之彼端. All rights reserved.
 //
 
