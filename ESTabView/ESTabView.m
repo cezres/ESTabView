@@ -1,210 +1,141 @@
 //
 //  ESTabView.m
-//  TabbarDemo
+//  ESTabView
 //
-//  Created by 翟泉 on 16/3/21.
+//  Created by 翟泉 on 2016/8/10.
 //  Copyright © 2016年 云之彼端. All rights reserved.
 //
 
 #import "ESTabView.h"
 
-#define TabBarHeight 38.0
-
-#define ColorRGB(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0]
 
 @interface ESTabView ()
-<
-ESTabBarDelegate,
-UIScrollViewDelegate
->
+<UIScrollViewDelegate, UIGestureRecognizerDelegate>
 {
-    CGSize _size;
-    
-    
-    
+    ESTabBarStyle _style;
+    UIScrollView *_scrollView;
 }
 
-
-
-@property (strong, nonatomic) UIScrollView *scrollView;
+@property (assign, nonatomic) NSInteger index;
 
 @end
 
 @implementation ESTabView
 
-- (instancetype)initWithFrame:(CGRect)frame; {
-    if (self = [super initWithFrame:frame]) {
-        _currentIndex = -1;
+- (instancetype)initWithStyle:(ESTabBarStyle)style {
+    if (self = [super init]) {
+        _style = style;
         
-    }
-    return self;
-}
-
-- (void)moveToIndex:(NSInteger)index animated:(BOOL)animated; {
-    if (index >= _views.count) {
-        return;
-    }
-    _currentIndex = -1;
-    self.currentIndex = index;
-    [self.scrollView setContentOffset:CGPointMake(_currentIndex * self.scrollView.frame.size.width, 0) animated:YES];
-}
-
-- (UIView *)contentViewWithIndex:(NSInteger)index; {
-    if (_views.count > index) {
-        return _views[index];
-    }
-    else {
-        return NULL;
-    }
-}
-
-- (__kindof UIView *)currentContentView; {
-    if (self.currentIndex >= self.views.count) {
-        return NULL;
-    }
-    else {
-        return self.views[self.currentIndex];
-    }
-}
-
-- (void)setCurrentIndex:(NSInteger)currentIndex; {
-    if (_currentIndex == currentIndex) {
-        return;
-    }
-    _currentIndex = currentIndex;
-    self.tabBar.selectedIndex = currentIndex;
-    self.scrollView.contentOffset = CGPointMake(currentIndex * self.scrollView.frame.size.width, 0);
-    
-    [self.delegate tabView:self didMoveToIndex:_currentIndex];
-}
-
-
-#pragma mark - ESTabBarDelegate
-- (void)tabbar:(ESTabBar *)tabbar selectedIndex:(NSInteger)index; {
-    if (index == _currentIndex) {
-        return;
-    }
-    self.currentIndex = index;
-}
-
-#pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView; {
-    self.currentIndex = (NSInteger)self.scrollView.contentOffset.x / self.scrollView.frame.size.width;
-}
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView; {
-    self.currentIndex = (NSInteger)self.scrollView.contentOffset.x / self.scrollView.frame.size.width;
-}
-
-
-#pragma mark - UI
-
-- (void)setItemsWithViews:(NSArray<__kindof UIView *> *)views titles:(NSArray<NSString *> *)titles; {
-    if (views.count != titles.count) {
-        return;
-    }
-    
-    [self.views removeAllObjects];
-    [_views addObjectsFromArray:views];
-    
-    [self.scrollView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [obj removeFromSuperview];
-    }];
-    
-    __weak typeof(self) weakself = self;
-    [_views enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [weakself.scrollView addSubview:obj];
-    }];
-    
-    [self.tabBar setTabWithTitles:titles];
-    
-    _size = CGSizeZero;
-    [self setNeedsLayout];
-    
-    self.currentIndex = _currentIndex==-1? 0:_currentIndex;
-}
-
-- (void)insertItemWithView:(__kindof UIView *)view title:(NSString *)title atIndex:(NSUInteger)index; {
-    [_views insertObject:view atIndex:index];
-    [_scrollView addSubview:view];
-    
-    [_tabBar insertTabWithTitle:title atIndex:index];
-    
-    _size = CGSizeZero;
-    [self setNeedsLayout];
-}
-- (void)removeItemAtIndex:(NSUInteger)index; {
-    if (self.currentIndex == index) {
-        [self moveToIndex:0 animated:NO];
-    }
-    
-    [_views[index] removeFromSuperview];
-    [_views removeObjectAtIndex:index];
-    
-    
-    [self.tabBar removeTabAtIndex:index];
-
-    _size = CGSizeZero;
-    [self setNeedsLayout];
-}
-
-- (void)setView:(__kindof UIView *)view forItemAtIndex:(NSUInteger)index; {
-    [_views[index] removeFromSuperview];
-    view.frame = _views[index].frame;
-    [_scrollView addSubview:view];
-    [_views replaceObjectAtIndex:index withObject:view];
-}
-- (void)setTitle:(NSString *)title forItemAtIndex:(NSUInteger)index; {
-    [_tabBar setTitle:title forItemAtIndex:index];
-}
-
-
-
-- (void)layoutSubviews; {
-    if (CGSizeEqualToSize(self.frame.size, _size)) {
-        return;
-    }
-    _size = self.frame.size;
-    
-    self.tabBar.frame = CGRectMake(0, 0, self.frame.size.width, TabBarHeight);
-    self.scrollView.frame = CGRectMake(0, TabBarHeight, self.frame.size.width, self.frame.size.height-TabBarHeight);
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * _views.count, 0);
-    
-    __weak typeof(self) weakself = self;
-    [_views enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        obj.frame = CGRectMake(idx*weakself.scrollView.frame.size.width, 0, weakself.scrollView.frame.size.width, weakself.scrollView.frame.size.height);
-    }];
-    
-    [super layoutSubviews];
-}
-
-
-#pragma mark - Lazy
-- (UIScrollView *)scrollView; {
-    if (!_scrollView) {
-        _scrollView =[[UIScrollView alloc] init];
+        _tabBar = [[ESTabBar alloc] initWithStyle:_style];
+        [_tabBar setTintColorR:200 g:200 b:200];
+        [_tabBar setSelectedTintColorR:216 g:92 b:92];
+        _tabBar.edgeInsets = UIEdgeInsetsMake(4, 15, 4, 15);
+        _tabBar.spacing = 15;
+        _tabBar.backgroundColor = [UIColor whiteColor];
+        __weak typeof(self) weakself = self;
+        [_tabBar setOnClickItem:^(NSInteger idx) {
+            [weakself moveToIndex:idx animated:YES];
+        }];
+        [self addSubview:_tabBar];
+        
+        _scrollView = [[UIScrollView alloc] init];
         _scrollView.backgroundColor = [UIColor whiteColor];
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.pagingEnabled = YES;
         _scrollView.delegate = self;
         [self addSubview:_scrollView];
+        
+        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] init];
+        pan.delegate = self;
+        [_scrollView addGestureRecognizer:pan];
+        
     }
-    return _scrollView;
+    return self;
 }
-- (ESTabBar *)tabBar; {
-    if (!_tabBar) {
-        _tabBar = [[ESTabBar alloc] init];
-        _tabBar.backgroundColor = ColorRGB(255, 255, 255);
-        _tabBar.tabbarDelegate = self;
-        [self addSubview:_tabBar];
+
+- (void)setIndex:(NSInteger)index {
+    if (_index == index) {
+        return;
     }
-    return _tabBar;
+    _index = index;
+    [self.delegate tabView:self didMoveToIndex:index];
 }
-- (NSMutableArray<UIView *> *)views; {
-    if (!_views) {
-        _views = [NSMutableArray array];
+
+
+
+- (void)setItemsWithViews:(NSArray<__kindof UIView *> *)views titles:(NSArray<NSString *> *)titles index:(NSInteger)index {
+    _index = -1;
+    self.index = index;
+    _views = [views copy];
+    [_tabBar setTitles:titles];
+    [_scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    for (UIView *view in views) {
+        [_scrollView addSubview:view];
     }
-    return _views;
+    [self setNeedsLayout];
 }
+
+- (void)setItemTitle:(NSString *)title forIndex:(NSUInteger)index {
+    [_tabBar setItemTitle:title forIndex:index];
+}
+
+- (void)moveToIndex:(NSInteger)index animated:(BOOL)animated {
+    self.index = index;
+    [_scrollView setContentOffset:CGPointMake(_scrollView.bounds.size.width * index, 0) animated:animated];
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    _tabBar.contentOffset = scrollView.contentOffset.x / scrollView.bounds.size.width;
+}
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView; {
+    self.index = (NSInteger)scrollView.contentOffset.x / scrollView.bounds.size.width;
+}
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView; {
+    self.index = (NSInteger)scrollView.contentOffset.x / scrollView.bounds.size.width;
+}
+
+
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer {
+    CGFloat translationX = [gestureRecognizer translationInView:_scrollView].x;
+    if (_scrollView.contentOffset.x == 0 && translationX > 0) {
+        _scrollView.scrollEnabled = NO;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            _scrollView.scrollEnabled = YES;
+        });
+    }
+    return NO;
+}
+
+
+#pragma mark - Get
+
+- (NSInteger)currentIndex {
+    return _index;
+}
+
+- (UIView *)currentContentView {
+    return _views[_index];
+}
+
+
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    _tabBar.frame = CGRectMake(0, 0, self.bounds.size.width, 44);
+    _scrollView.frame = CGRectMake(0, 44, self.bounds.size.width, self.bounds.size.height-44);
+    _scrollView.contentOffset = CGPointMake(_scrollView.bounds.size.width * _index, 0);
+    _scrollView.contentSize = CGSizeMake(_scrollView.bounds.size.width * _views.count, 0);
+    [_scrollView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj.frame = CGRectMake(_scrollView.bounds.size.width * idx, 0, _scrollView.bounds.size.width, _scrollView.bounds.size.height);
+    }];
+}
+
+
+
 
 @end

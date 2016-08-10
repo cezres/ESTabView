@@ -1,63 +1,43 @@
 //
 //  ESTabBar.h
-//  TabbarDemo
+//  ESTabView
 //
-//  Created by 翟泉 on 16/3/21.
+//  Created by 翟泉 on 2016/8/10.
 //  Copyright © 2016年 云之彼端. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "Categroy.h"
 
-#define COUNT
+typedef NS_ENUM(NSInteger, ESTabBarStyle) {
+    ESTabBarStyleNormal,
+    ESTabBarStyleScroll
+};
 
-@class ESTabBar;
 
-@protocol ESTabBarDelegate <NSObject>
+@interface ESTabBar : UIView
 
-- (void)tabbar:(ESTabBar *)tabbar selectedIndex:(NSInteger)index;
+@property (assign, nonatomic, readonly) NSInteger currentIndex;
 
-@end
+@property (assign, nonatomic, readonly) ESTabBarStyle style;
 
-@interface ESTabBar : UIScrollView
+@property (assign, nonatomic) UIEdgeInsets edgeInsets;
 
-//@property (strong, nonatomic) UIColor *barTintColor;
-//@property (strong, nonatomic) UIColor *selectedTintColor;
+@property (assign, nonatomic) CGFloat spacing;
 
-@property (strong, nonatomic) NSMutableArray<NSString *> *titles;
+@property (assign, nonatomic) CGFloat contentOffset;
 
-@property (assign, nonatomic) NSInteger selectedIndex;
+@property (copy, nonatomic) void (^onClickItem)(NSInteger index);
 
-@property (strong, nonatomic) UIView *line;
 
-@property (weak, nonatomic) id<ESTabBarDelegate> tabbarDelegate;
-/**
- *  设置标签栏标签
- *
- *  @param titles <#titles description#>
- */
-- (void)setTabWithTitles:(NSArray<NSString *> *)titles;
-/**
- *  插入标签
- *
- *  @param title <#title description#>
- *  @param index <#index description#>
- */
-- (void)insertTabWithTitle:(NSString *)title atIndex:(NSUInteger)index;
-/**
- *  移除标签
- *
- *  @param index <#index description#>
- */
-- (void)removeTabAtIndex:(NSUInteger)index;
-/**
- *  设置指定标签的标题
- *
- *  @param title <#title description#>
- *  @param index <#index description#>
- */
-- (void)setTitle:(NSString *)title forItemAtIndex:(NSUInteger)index;
+- (instancetype)initWithStyle:(ESTabBarStyle)style;
+
+- (void)setTitles:(NSArray<NSString *> *)titles;
+
+- (void)setTintColorR:(CGFloat)r g:(CGFloat)g b:(CGFloat)b;
+
+- (void)setSelectedTintColorR:(CGFloat)r g:(CGFloat)g b:(CGFloat)b;
+
+- (void)setItemTitle:(NSString *)title forIndex:(NSInteger)index;
 
 
 @end

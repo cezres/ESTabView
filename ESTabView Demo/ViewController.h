@@ -1,8 +1,8 @@
 //
 //  ViewController.h
-//  ESTabView Example
+//  ESTabView Demo
 //
-//  Created by 翟泉 on 16/4/14.
+//  Created by 翟泉 on 2016/8/10.
 //  Copyright © 2016年 云之彼端. All rights reserved.
 //
 

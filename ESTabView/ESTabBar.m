@@ -1,221 +1,263 @@
 //
 //  ESTabBar.m
-//  TabbarDemo
+//  ESTabView
 //
-//  Created by 翟泉 on 16/3/21.
+//  Created by 翟泉 on 2016/8/10.
 //  Copyright © 2016年 云之彼端. All rights reserved.
 //
 
 #import "ESTabBar.h"
 
-
-#define ColorRGB(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0]
+#define ColorRGBA(r, g, b, a)               [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:a]
+#define ColorRGB(r, g, b)                   ColorRGBA((r), (g), (b), 1.0)
 
 @interface ESTabBar ()
+
 {
-    CGSize _size;
+    CGFloat _cR;
+    CGFloat _cG;
+    CGFloat _cB;
+    CGFloat _sCR;
+    CGFloat _sCG;
+    CGFloat _sCB;
+    
+    UIColor *_color;
+    UIColor *_sColor;
+    
+    NSMutableArray<NSString *> *_titles;
+    NSMutableArray<UIButton *> *_items;
+    UIView *_bottomLine;
+    UIView *_contentView;
 }
 
-@property (strong, nonatomic) NSMutableArray<UIButton *> *buttons;
-
+@property (assign, nonatomic) NSInteger index;
 
 @end
 
 @implementation ESTabBar
 
-- (instancetype)initWithFrame:(CGRect)frame; {
-    if (self = [super initWithFrame:frame]) {
-        self.showsHorizontalScrollIndicator = NO;
-        self.titles = [NSMutableArray array];
-        self.buttons = [NSMutableArray array];
-    }
-    return self;
-}
-- (instancetype)init; {
-    if (self = [super init]) {
-        self.showsHorizontalScrollIndicator = NO;
-        self.titles = [NSMutableArray array];
-        self.buttons = [NSMutableArray array];
+- (instancetype)initWithStyle:(ESTabBarStyle)style {
+    if (self = [super initWithFrame:CGRectZero]) {
+        _style = style;
+        if (style == ESTabBarStyleNormal) {
+            [self initNormalContentView];
+        }
+        else {
+            [self initScrollContentView];
+        }
+        _bottomLine = [[UIView alloc] init];
+        [_contentView addSubview:_bottomLine];
+        _items = [NSMutableArray array];
+        
+        [self setTintColorR:200 g:200 b:200];
+        [self setSelectedTintColorR:34 g:34 b:34];
     }
     return self;
 }
 
-- (void)setSelectedIndex:(NSInteger)selectedIndex; {
-    
-    if (selectedIndex >= self.buttons.count) {
+- (void)onClickItem:(UIButton *)item {
+    _onClickItem ? _onClickItem(item.tag) : NULL;
+}
+
+#pragma mark - Item 
+
+- (void)setItemTitle:(NSString *)title forIndex:(NSInteger)index {
+    [_items[index] setTitle:title forState:UIControlStateNormal];
+    [self setNeedsLayout];
+}
+
+#pragma mark - Set/Get Property
+
+- (void)setContentOffset:(CGFloat)contentOffset {
+    if (contentOffset < 0 || contentOffset > _items.count-1) {
         return;
     }
-    
-    [self.tabbarDelegate tabbar:self selectedIndex:selectedIndex];
-    
-    _selectedIndex = selectedIndex;
+    NSInteger index = (NSInteger)contentOffset;
+    CGFloat progress = contentOffset - index;
     
     
-    for (UIButton *button in self.buttons) {
-        if (button.tag == selectedIndex) {
-            [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        }
-        else {
-            [button setTitleColor:[UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0] forState:UIControlStateNormal];
-        }
-    }
-    
-    
-    if (_selectedIndex == 0) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self setContentOffset:CGPointZero animated:YES];
-        });
+    /**
+     *  Line Color
+     */
+    CGFloat lineX;
+    CGFloat lineWidth;
+    if (index == _items.count-1) {
+        lineX = _items[index].frame.origin.x;
+        lineWidth = _items[index].frame.size.width;
     }
     else {
-        NSInteger moveIndex = selectedIndex;
-        if (self.buttons[selectedIndex].center.x - self.contentOffset.x > self.frame.size.width/2) {
-            if (moveIndex+2 < self.buttons.count)
-                moveIndex += 2;
-            else if (moveIndex+1 < self.buttons.count)
-                moveIndex += 1;
+        lineX = _items[index].frame.origin.x + (_items[index + 1].frame.origin.x - _items[index].frame.origin.x) * progress;
+        lineWidth = _items[index].frame.size.width + (_items[index + 1].frame.size.width - _items[index].frame.size.width) * progress;
+    }
+    _bottomLine.frame = CGRectMake(lineX, _bottomLine.frame.origin.y, lineWidth, _bottomLine.bounds.size.height);
+    
+    /**
+     *  Items Color
+     */
+    if (contentOffset > _index) {
+        if (progress == 0) {
+            [_items[index] setTitleColor:_sColor forState:UIControlStateNormal];
+            [_items[index-1] setTitleColor:_color forState:UIControlStateNormal];
         }
         else {
-            if (moveIndex-2 >= 0)
-                moveIndex -= 2;
-            else if (moveIndex-1 >= 0)
-                moveIndex -= 1;
+            UIColor *color1 = ColorRGB(_sCR + (_cR - _sCR) * progress, _sCG + (_cG - _sCG) * progress, _sCB + (_cB - _sCB) * progress);
+            UIColor *color2 = ColorRGB(_cR + (_sCR - _cR) * progress, _cG + (_sCG - _cG) * progress, _cB + (_sCB - _cB) * progress);
+            [_items[index] setTitleColor:color1 forState:UIControlStateNormal];
+            [_items[index+1] setTitleColor:color2 forState:UIControlStateNormal];
         }
-        [self scrollRectToVisible:self.buttons[moveIndex].frame animated:YES];
+        if (_index != index) {
+            _index = index;
+        }
+    }
+    else if (contentOffset < _index) {
+        progress = 1 - progress;
+        if (progress == 0) {
+            [_items[index] setTitleColor:_sColor forState:UIControlStateNormal];
+            [_items[index+1] setTitleColor:_color forState:UIControlStateNormal];
+        }
+        else {
+            UIColor *color1 = ColorRGB(_sCR + (_cR - _sCR) * progress, _sCG + (_cG - _sCG) * progress, _sCB + (_cB - _sCB) * progress);
+            UIColor *color2 = ColorRGB(_cR + (_sCR - _cR) * progress, _cG + (_sCG - _cG) * progress, _cB + (_sCB - _cB) * progress);
+            [_items[index+1] setTitleColor:color1 forState:UIControlStateNormal];
+            [_items[index] setTitleColor:color2 forState:UIControlStateNormal];
+        }
+        if (1 - progress == 0) {
+            if (_index != index) {
+                _index = index;
+            }
+        }
+        else if (index+1 < _index) {
+            _index = index+1;
+        }
     }
     
-    
-    
-    
-    
-
-    [UIView animateWithDuration:0.2 animations:^{
-        [self lineViewLayout];
-    }];
-}
-
-- (void)selectedItem:(UIButton *)button; {
-    self.selectedIndex = button.tag;
-}
-
-- (void)setTabWithTitles:(NSArray<NSString *> *)titles; {
-    [self.titles removeAllObjects];
-    [self.titles addObjectsFromArray:titles];
-    
-    NSInteger count = self.buttons.count;
-    for (NSInteger i=count; i<titles.count; i++) {
-        [self.buttons addObject:[self createBarButton]];
-    }
-    count = self.buttons.count;
-    for (NSInteger i=count-1; i>=self.titles.count; i--) {
-        [self.buttons[i] removeFromSuperview];
-        [self.buttons removeLastObject];
+    if (_style == ESTabBarStyleScroll) {
+        UIScrollView *scrollView = (UIScrollView *)_contentView;
+        [self layoutIfNeeded];
+        if (scrollView.contentSize.width <= scrollView.bounds.size.width) {
+            return;
+        }
+        scrollView.contentOffset = CGPointMake((scrollView.contentSize.width - scrollView.bounds.size.width) * (contentOffset / (_items.count-1)), 0);
     }
     
-    [self setUpTitle];
-    
-    _size = CGSizeZero;
-    [self setNeedsLayout];
-}
-- (void)insertTabWithTitle:(NSString *)title atIndex:(NSUInteger)index; {
-    [self.titles insertObject:title atIndex:index];
-    
-    [self.buttons insertObject:[self createBarButton] atIndex:index];
-    
-    [self setUpTitle];
-    
-    _size = CGSizeZero;
-    [self setNeedsLayout];
-}
-- (void)removeTabAtIndex:(NSUInteger)index; {
-    [self.titles removeObjectAtIndex:index];
-    [self.buttons[index] removeFromSuperview];
-    [self.buttons removeObjectAtIndex:index];
-    
-    [self setUpTitle];
-    
-    _size = CGSizeZero;
-    [self setNeedsLayout];
-}
-- (void)setTitle:(NSString *)title forItemAtIndex:(NSUInteger)index; {
-    [self.titles replaceObjectAtIndex:index withObject:title];
-    [self.buttons[index] setTitle:title forState:UIControlStateNormal];
 }
 
-- (void)setUpTitle; {
-    [self.buttons enumerateObjectsUsingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [obj setTitle:self.titles[idx] forState:UIControlStateNormal];
+- (NSInteger)currentIndex {
+    return _index;
+}
+
+- (void)setTitles:(NSArray<NSString *> *)titles {
+    _index = -1;
+    _titles = [NSMutableArray arrayWithArray:titles];
+    [self createItemViews];
+    [_items enumerateObjectsUsingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj setTitle:titles[idx] forState:UIControlStateNormal];
         obj.tag = idx;
     }];
+    
+    [self settingItemsColor];
+    [self setNeedsLayout];
 }
 
-- (void)layoutSubviews; {
-    if (CGSizeEqualToSize(self.bounds.size, _size)) {
-        return;
+- (void)setTintColorR:(CGFloat)r g:(CGFloat)g b:(CGFloat)b {
+    _cR = r; _cG = g; _cB = b;
+    _color = [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0];
+    [self settingItemsColor];
+}
+
+- (void)setSelectedTintColorR:(CGFloat)r g:(CGFloat)g b:(CGFloat)b {
+    _sCR = r; _sCG = g; _sCB = b;
+    _sColor = [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0];
+    [self settingItemsColor];
+    _bottomLine.backgroundColor = _sColor;
+}
+
+- (void)setSpacing:(CGFloat)spacing {
+    _spacing = spacing;
+    [self setNeedsLayout];
+}
+
+- (void)setEdgeInsets:(UIEdgeInsets)edgeInsets {
+    _edgeInsets = edgeInsets;
+    [self setNeedsLayout];
+}
+
+
+#pragma mark - View
+
+- (void)initNormalContentView {
+    _contentView = [[UIView alloc] init];
+    [self addSubview:_contentView];
+}
+- (void)initScrollContentView {
+    _contentView = [[UIScrollView alloc] init];
+    ((UIScrollView *)_contentView).showsHorizontalScrollIndicator = NO;
+    [self addSubview:_contentView];
+}
+
+- (void)createItemViews {
+    for (NSInteger i=_items.count; i<_titles.count; i++) {
+        UIButton *item = [self createItemView];
+        [_contentView addSubview:item];
+        [_items addObject:item];
     }
-    if ([_buttons count] == 0) {
-        return;
+    NSInteger itemsCount = _items.count;
+    for (NSInteger i=itemsCount-1; i>=_titles.count; i--) {
+        [_items.lastObject removeFromSuperview];
+        [_items removeLastObject];
     }
-    
-    _size = self.bounds.size;
-    
-    if (self.buttons.count > 5) {
-        CGFloat originX = 0;
-        for (UIButton *button in _buttons) {
-            CGFloat width = [self.titles[button.tag] boundingRectWithSize:CGSizeMake(99999, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: button.titleLabel.font} context:NULL].size.width + 20;
-            button.frame = CGRectMake(originX, 0, width, self.frame.size.height);
-            originX = button.frame.origin.x + width;
-        }
-        self.scrollEnabled = YES;
-        self.contentSize = CGSizeMake(originX, self.frame.size.height);
-    }
-    else if (_buttons.count > 0) {
-        CGFloat itemWidth = self.frame.size.width / _buttons.count;
-        for (int i=0; i<_buttons.count; i++) {
-            _buttons[i].frame = CGRectMake(itemWidth*i, 0, itemWidth, self.frame.size.height);
-        }
-        self.contentOffset = CGPointZero;
-        self.scrollEnabled = NO;
-    }
-    
-    if (_selectedIndex >= _buttons.count) {
-        self.selectedIndex = _buttons.count-1;
-    }
-    
-    [self lineViewLayout];
-    
+}
+
+- (UIButton *)createItemView {
+    UIButton *item = [UIButton buttonWithType:UIButtonTypeSystem];
+    item.titleLabel.font = [UIFont fontWithName:@"ArialMT" size:14];
+    [item addTarget:self action:@selector(onClickItem:) forControlEvents:UIControlEventTouchUpInside];
+    return item;
+}
+
+#pragma mark - Layout
+
+- (void)layoutSubviews {
     [super layoutSubviews];
-}
-
-
-- (void)lineViewLayout; {
-    NSString *string = self.buttons[_selectedIndex].titleLabel.text;
-    CGFloat width    = [string es_widthWithFont:_buttons[_selectedIndex].titleLabel.font];
-    width            = ceilf(width);
-    self.line.frame  = CGRectMake(_buttons[_selectedIndex].frame.origin.x + (_buttons[_selectedIndex].frame.size.width - width)/2, self.frame.size.height-2, width, 2);
-}
-
-
-- (UIButton *)createBarButton; {
-    
-    UIButton *button       = [UIButton buttonWithType:UIButtonTypeSystem];
-    button.titleLabel.font = [UIFont fontWithName:@"ArialMT" size:14];
-    [button addTarget:self action:@selector(selectedItem:) forControlEvents:UIControlEventTouchUpInside];
-    [button setTitleColor:ColorRGB(153,153,153) forState:UIControlStateNormal];
-    
-    [self addSubview:button];
-    return button;
-}
-
-
-
-
-- (UIView *)line; {
-    if (!_line) {
-        _line = [[UIView alloc] init];
-        _line.backgroundColor = [UIColor colorWithRed:217/255.0 green:92/255.0 blue:92/255.0 alpha:1.0];
-        [self addSubview:_line];
+    _contentView.frame = CGRectMake(_edgeInsets.left,
+                                    _edgeInsets.top,
+                                    self.bounds.size.width - _edgeInsets.left - _edgeInsets.right,
+                                    self.bounds.size.height - _edgeInsets.top - _edgeInsets.bottom);
+    [self layoutItems];
+    if (_index >= 0) {
+        _bottomLine.frame = CGRectMake(_items[_index].frame.origin.x, _contentView.bounds.size.height-2, _items[_index].frame.size.width, 2);
     }
-    return _line;
+}
+
+- (void)layoutItems {
+    if (_style == ESTabBarStyleNormal) {
+        CGFloat itemWidth = (_contentView.bounds.size.width - _spacing * (_items.count-1)) / _items.count;
+        [_items enumerateObjectsUsingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            obj.frame = CGRectMake((itemWidth + _spacing) * idx, 0, itemWidth, _contentView.bounds.size.height);
+        }];
+    }
+    else {
+        __block CGFloat x = 0;
+        [_items enumerateObjectsUsingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *title = [obj titleForState:UIControlStateNormal];
+            CGFloat width = [title boundingRectWithSize:CGSizeMake(999, 16) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: obj.titleLabel.font} context:NULL].size.width;
+            obj.frame = CGRectMake(x, 0, width, _contentView.bounds.size.height);
+            x += width + self.spacing;
+        }];
+        ((UIScrollView *)_contentView).contentSize = CGSizeMake(x-_spacing, 0);
+    }
+}
+
+
+- (void)settingItemsColor {
+    [_items enumerateObjectsUsingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (idx == _index) {
+            [obj setTitleColor:[UIColor colorWithRed:_sCR/255.0 green:_sCG/255.0 blue:_sCB/255.0 alpha:1.0] forState:UIControlStateNormal];
+        }
+        else {
+            [obj setTitleColor:[UIColor colorWithRed:_cR/255.0 green:_cG/255.0 blue:_cB/255.0 alpha:1.0] forState:UIControlStateNormal];
+        }
+    }];
 }
 
 @end
