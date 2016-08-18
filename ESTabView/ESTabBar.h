@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, ESTabBarStyle) {
 
 @interface ESTabBar : UIView
 
-@property (assign, nonatomic, readonly) NSInteger currentIndex;
+@property (assign, nonatomic) NSInteger currentIndex;
 
 @property (assign, nonatomic, readonly) ESTabBarStyle style;
 

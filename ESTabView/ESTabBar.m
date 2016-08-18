@@ -146,6 +146,12 @@
     return _index;
 }
 
+- (void)setCurrentIndex:(NSInteger)currentIndex {
+    _index = currentIndex;
+    [self settingItemsColor];
+    _contentOffset = currentIndex;
+}
+
 - (void)setTitles:(NSArray<NSString *> *)titles {
     _index = -1;
     _titles = [NSMutableArray arrayWithArray:titles];

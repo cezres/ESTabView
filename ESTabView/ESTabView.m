@@ -95,6 +95,7 @@
 }
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView; {
     self.index = (NSInteger)scrollView.contentOffset.x / scrollView.bounds.size.width;
+    self.tabBar.currentIndex = _index;
 }
 
 
