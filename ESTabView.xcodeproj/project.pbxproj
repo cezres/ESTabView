@@ -7,159 +7,106 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6E5975851D5AC76B00D520E0 /* ESTabView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E5975841D5AC76B00D520E0 /* ESTabView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6E5975941D5AC79000D520E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5975931D5AC79000D520E0 /* main.m */; };
-		6E5975971D5AC79000D520E0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5975961D5AC79000D520E0 /* AppDelegate.m */; };
-		6E59759A1D5AC79000D520E0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5975991D5AC79000D520E0 /* ViewController.m */; };
-		6E59759D1D5AC79000D520E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E59759B1D5AC79000D520E0 /* Main.storyboard */; };
-		6E59759F1D5AC79000D520E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E59759E1D5AC79000D520E0 /* Assets.xcassets */; };
-		6E5975A21D5AC79000D520E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E5975A01D5AC79000D520E0 /* LaunchScreen.storyboard */; };
-		6E5975A81D5AC7A100D520E0 /* ESTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5975A71D5AC7A100D520E0 /* ESTabView.m */; };
-		6E5975AB1D5AC7BD00D520E0 /* ESTabBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E5975A91D5AC7BD00D520E0 /* ESTabBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6E5975AC1D5AC7BD00D520E0 /* ESTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5975AA1D5AC7BD00D520E0 /* ESTabBar.m */; };
-		6E5975AD1D5AC9E500D520E0 /* ESTabView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5975811D5AC76B00D520E0 /* ESTabView.framework */; };
-		6E5975AE1D5AC9E500D520E0 /* ESTabView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5975811D5AC76B00D520E0 /* ESTabView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6E5422311E28BA920099DC10 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5422301E28BA920099DC10 /* main.m */; };
+		6E5422341E28BA920099DC10 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5422331E28BA920099DC10 /* AppDelegate.m */; };
+		6E5422371E28BA920099DC10 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5422361E28BA920099DC10 /* ViewController.m */; };
+		6E54223A1E28BA920099DC10 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E5422381E28BA920099DC10 /* Main.storyboard */; };
+		6E54223C1E28BA920099DC10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E54223B1E28BA920099DC10 /* Assets.xcassets */; };
+		6E54223F1E28BA920099DC10 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E54223D1E28BA920099DC10 /* LaunchScreen.storyboard */; };
+		6E54224B1E28BAD70099DC10 /* ESTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E5422481E28BAD70099DC10 /* ESTabBar.m */; };
+		6E54224C1E28BAD70099DC10 /* ESTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E54224A1E28BAD70099DC10 /* ESTabView.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		6E5975AF1D5AC9E500D520E0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6E5975781D5AC76B00D520E0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6E5975801D5AC76B00D520E0;
-			remoteInfo = ESTabView;
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		6E5975B11D5AC9E500D520E0 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				6E5975AE1D5AC9E500D520E0 /* ESTabView.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		6E5975811D5AC76B00D520E0 /* ESTabView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ESTabView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6E5975841D5AC76B00D520E0 /* ESTabView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ESTabView.h; sourceTree = "<group>"; };
-		6E5975861D5AC76B00D520E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6E5975901D5AC79000D520E0 /* ESTabView Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ESTabView Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6E5975931D5AC79000D520E0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		6E5975951D5AC79000D520E0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		6E5975961D5AC79000D520E0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		6E5975981D5AC79000D520E0 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		6E5975991D5AC79000D520E0 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		6E59759C1D5AC79000D520E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		6E59759E1D5AC79000D520E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		6E5975A11D5AC79000D520E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		6E5975A31D5AC79000D520E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6E5975A71D5AC7A100D520E0 /* ESTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESTabView.m; sourceTree = "<group>"; };
-		6E5975A91D5AC7BD00D520E0 /* ESTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESTabBar.h; sourceTree = "<group>"; };
-		6E5975AA1D5AC7BD00D520E0 /* ESTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESTabBar.m; sourceTree = "<group>"; };
+		6E54222C1E28BA920099DC10 /* ESTabView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ESTabView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E5422301E28BA920099DC10 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6E5422321E28BA920099DC10 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		6E5422331E28BA920099DC10 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		6E5422351E28BA920099DC10 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		6E5422361E28BA920099DC10 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		6E5422391E28BA920099DC10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6E54223B1E28BA920099DC10 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6E54223E1E28BA920099DC10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		6E5422401E28BA920099DC10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6E5422471E28BAD70099DC10 /* ESTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESTabBar.h; sourceTree = "<group>"; };
+		6E5422481E28BAD70099DC10 /* ESTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESTabBar.m; sourceTree = "<group>"; };
+		6E5422491E28BAD70099DC10 /* ESTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESTabView.h; sourceTree = "<group>"; };
+		6E54224A1E28BAD70099DC10 /* ESTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESTabView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		6E59757D1D5AC76B00D520E0 /* Frameworks */ = {
+		6E5422291E28BA920099DC10 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6E59758D1D5AC79000D520E0 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6E5975AD1D5AC9E500D520E0 /* ESTabView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6E5975771D5AC76B00D520E0 = {
+		6E5422231E28BA920099DC10 = {
 			isa = PBXGroup;
 			children = (
-				6E5975831D5AC76B00D520E0 /* ESTabView */,
-				6E5975911D5AC79000D520E0 /* ESTabView Demo */,
-				6E5975821D5AC76B00D520E0 /* Products */,
+				6E5422461E28BAD70099DC10 /* Classes */,
+				6E54222E1E28BA920099DC10 /* ESTabView */,
+				6E54222D1E28BA920099DC10 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		6E5975821D5AC76B00D520E0 /* Products */ = {
+		6E54222D1E28BA920099DC10 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6E5975811D5AC76B00D520E0 /* ESTabView.framework */,
-				6E5975901D5AC79000D520E0 /* ESTabView Demo.app */,
+				6E54222C1E28BA920099DC10 /* ESTabView.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6E5975831D5AC76B00D520E0 /* ESTabView */ = {
+		6E54222E1E28BA920099DC10 /* ESTabView */ = {
 			isa = PBXGroup;
 			children = (
-				6E5975841D5AC76B00D520E0 /* ESTabView.h */,
-				6E5975A71D5AC7A100D520E0 /* ESTabView.m */,
-				6E5975A91D5AC7BD00D520E0 /* ESTabBar.h */,
-				6E5975AA1D5AC7BD00D520E0 /* ESTabBar.m */,
-				6E5975861D5AC76B00D520E0 /* Info.plist */,
+				6E5422321E28BA920099DC10 /* AppDelegate.h */,
+				6E5422331E28BA920099DC10 /* AppDelegate.m */,
+				6E5422351E28BA920099DC10 /* ViewController.h */,
+				6E5422361E28BA920099DC10 /* ViewController.m */,
+				6E5422381E28BA920099DC10 /* Main.storyboard */,
+				6E54223B1E28BA920099DC10 /* Assets.xcassets */,
+				6E54223D1E28BA920099DC10 /* LaunchScreen.storyboard */,
+				6E5422401E28BA920099DC10 /* Info.plist */,
+				6E54222F1E28BA920099DC10 /* Supporting Files */,
 			);
 			path = ESTabView;
 			sourceTree = "<group>";
 		};
-		6E5975911D5AC79000D520E0 /* ESTabView Demo */ = {
+		6E54222F1E28BA920099DC10 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				6E5975951D5AC79000D520E0 /* AppDelegate.h */,
-				6E5975961D5AC79000D520E0 /* AppDelegate.m */,
-				6E5975981D5AC79000D520E0 /* ViewController.h */,
-				6E5975991D5AC79000D520E0 /* ViewController.m */,
-				6E59759B1D5AC79000D520E0 /* Main.storyboard */,
-				6E59759E1D5AC79000D520E0 /* Assets.xcassets */,
-				6E5975A01D5AC79000D520E0 /* LaunchScreen.storyboard */,
-				6E5975A31D5AC79000D520E0 /* Info.plist */,
-				6E5975921D5AC79000D520E0 /* Supporting Files */,
-			);
-			path = "ESTabView Demo";
-			sourceTree = "<group>";
-		};
-		6E5975921D5AC79000D520E0 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				6E5975931D5AC79000D520E0 /* main.m */,
+				6E5422301E28BA920099DC10 /* main.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		6E5422461E28BAD70099DC10 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				6E5422471E28BAD70099DC10 /* ESTabBar.h */,
+				6E5422481E28BAD70099DC10 /* ESTabBar.m */,
+				6E5422491E28BAD70099DC10 /* ESTabView.h */,
+				6E54224A1E28BAD70099DC10 /* ESTabView.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		6E59757E1D5AC76B00D520E0 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6E5975AB1D5AC7BD00D520E0 /* ESTabBar.h in Headers */,
-				6E5975851D5AC76B00D520E0 /* ESTabView.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
-		6E5975801D5AC76B00D520E0 /* ESTabView */ = {
+		6E54222B1E28BA920099DC10 /* ESTabView */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6E5975891D5AC76B00D520E0 /* Build configuration list for PBXNativeTarget "ESTabView" */;
+			buildConfigurationList = 6E5422431E28BA920099DC10 /* Build configuration list for PBXNativeTarget "ESTabView" */;
 			buildPhases = (
-				6E59757C1D5AC76B00D520E0 /* Sources */,
-				6E59757D1D5AC76B00D520E0 /* Frameworks */,
-				6E59757E1D5AC76B00D520E0 /* Headers */,
-				6E59757F1D5AC76B00D520E0 /* Resources */,
+				6E5422281E28BA920099DC10 /* Sources */,
+				6E5422291E28BA920099DC10 /* Frameworks */,
+				6E54222A1E28BA920099DC10 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -167,46 +114,26 @@
 			);
 			name = ESTabView;
 			productName = ESTabView;
-			productReference = 6E5975811D5AC76B00D520E0 /* ESTabView.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		6E59758F1D5AC79000D520E0 /* ESTabView Demo */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6E5975A61D5AC79000D520E0 /* Build configuration list for PBXNativeTarget "ESTabView Demo" */;
-			buildPhases = (
-				6E59758C1D5AC79000D520E0 /* Sources */,
-				6E59758D1D5AC79000D520E0 /* Frameworks */,
-				6E59758E1D5AC79000D520E0 /* Resources */,
-				6E5975B11D5AC9E500D520E0 /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6E5975B01D5AC9E500D520E0 /* PBXTargetDependency */,
-			);
-			name = "ESTabView Demo";
-			productName = "ESTabView Demo";
-			productReference = 6E5975901D5AC79000D520E0 /* ESTabView Demo.app */;
+			productReference = 6E54222C1E28BA920099DC10 /* ESTabView.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		6E5975781D5AC76B00D520E0 /* Project object */ = {
+		6E5422241E28BA920099DC10 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
-				ORGANIZATIONNAME = "云之彼端";
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "翟泉";
 				TargetAttributes = {
-					6E5975801D5AC76B00D520E0 = {
-						CreatedOnToolsVersion = 7.3.1;
-					};
-					6E59758F1D5AC79000D520E0 = {
-						CreatedOnToolsVersion = 7.3.1;
+					6E54222B1E28BA920099DC10 = {
+						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = 959Q9RL588;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
-			buildConfigurationList = 6E59757B1D5AC76B00D520E0 /* Build configuration list for PBXProject "ESTabView" */;
+			buildConfigurationList = 6E5422271E28BA920099DC10 /* Build configuration list for PBXProject "ESTabView" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -214,80 +141,57 @@
 				en,
 				Base,
 			);
-			mainGroup = 6E5975771D5AC76B00D520E0;
-			productRefGroup = 6E5975821D5AC76B00D520E0 /* Products */;
+			mainGroup = 6E5422231E28BA920099DC10;
+			productRefGroup = 6E54222D1E28BA920099DC10 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6E5975801D5AC76B00D520E0 /* ESTabView */,
-				6E59758F1D5AC79000D520E0 /* ESTabView Demo */,
+				6E54222B1E28BA920099DC10 /* ESTabView */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		6E59757F1D5AC76B00D520E0 /* Resources */ = {
+		6E54222A1E28BA920099DC10 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6E59758E1D5AC79000D520E0 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6E5975A21D5AC79000D520E0 /* LaunchScreen.storyboard in Resources */,
-				6E59759F1D5AC79000D520E0 /* Assets.xcassets in Resources */,
-				6E59759D1D5AC79000D520E0 /* Main.storyboard in Resources */,
+				6E54223F1E28BA920099DC10 /* LaunchScreen.storyboard in Resources */,
+				6E54223C1E28BA920099DC10 /* Assets.xcassets in Resources */,
+				6E54223A1E28BA920099DC10 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		6E59757C1D5AC76B00D520E0 /* Sources */ = {
+		6E5422281E28BA920099DC10 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E5975A81D5AC7A100D520E0 /* ESTabView.m in Sources */,
-				6E5975AC1D5AC7BD00D520E0 /* ESTabBar.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6E59758C1D5AC79000D520E0 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6E59759A1D5AC79000D520E0 /* ViewController.m in Sources */,
-				6E5975971D5AC79000D520E0 /* AppDelegate.m in Sources */,
-				6E5975941D5AC79000D520E0 /* main.m in Sources */,
+				6E5422371E28BA920099DC10 /* ViewController.m in Sources */,
+				6E54224B1E28BAD70099DC10 /* ESTabBar.m in Sources */,
+				6E54224C1E28BAD70099DC10 /* ESTabView.m in Sources */,
+				6E5422341E28BA920099DC10 /* AppDelegate.m in Sources */,
+				6E5422311E28BA920099DC10 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		6E5975B01D5AC9E500D520E0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6E5975801D5AC76B00D520E0 /* ESTabView */;
-			targetProxy = 6E5975AF1D5AC9E500D520E0 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
-		6E59759B1D5AC79000D520E0 /* Main.storyboard */ = {
+		6E5422381E28BA920099DC10 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				6E59759C1D5AC79000D520E0 /* Base */,
+				6E5422391E28BA920099DC10 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		6E5975A01D5AC79000D520E0 /* LaunchScreen.storyboard */ = {
+		6E54223D1E28BA920099DC10 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				6E5975A11D5AC79000D520E0 /* Base */,
+				6E54223E1E28BA920099DC10 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -295,7 +199,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		6E5975871D5AC76B00D520E0 /* Debug */ = {
+		6E5422411E28BA920099DC10 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -307,15 +211,17 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -333,17 +239,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		6E5975881D5AC76B00D520E0 /* Release */ = {
+		6E5422421E28BA920099DC10 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -355,15 +258,17 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -375,66 +280,35 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
-		6E59758A1D5AC76B00D520E0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = ESTabView/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cezr.ESTabView;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		6E59758B1D5AC76B00D520E0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = ESTabView/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cezr.ESTabView;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		6E5975A41D5AC79000D520E0 /* Debug */ = {
+		6E5422441E28BA920099DC10 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "ESTabView Demo/Info.plist";
+				DEVELOPMENT_TEAM = 959Q9RL588;
+				INFOPLIST_FILE = ESTabView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.cezr.ESTabView-Demo";
+				PRODUCT_BUNDLE_IDENTIFIER = com.cezr.ESTabView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		6E5975A51D5AC79000D520E0 /* Release */ = {
+		6E5422451E28BA920099DC10 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "ESTabView Demo/Info.plist";
+				DEVELOPMENT_TEAM = 959Q9RL588;
+				INFOPLIST_FILE = ESTabView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.cezr.ESTabView-Demo";
+				PRODUCT_BUNDLE_IDENTIFIER = com.cezr.ESTabView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -442,33 +316,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6E59757B1D5AC76B00D520E0 /* Build configuration list for PBXProject "ESTabView" */ = {
+		6E5422271E28BA920099DC10 /* Build configuration list for PBXProject "ESTabView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6E5975871D5AC76B00D520E0 /* Debug */,
-				6E5975881D5AC76B00D520E0 /* Release */,
+				6E5422411E28BA920099DC10 /* Debug */,
+				6E5422421E28BA920099DC10 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6E5975891D5AC76B00D520E0 /* Build configuration list for PBXNativeTarget "ESTabView" */ = {
+		6E5422431E28BA920099DC10 /* Build configuration list for PBXNativeTarget "ESTabView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6E59758A1D5AC76B00D520E0 /* Debug */,
-				6E59758B1D5AC76B00D520E0 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		6E5975A61D5AC79000D520E0 /* Build configuration list for PBXNativeTarget "ESTabView Demo" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6E5975A41D5AC79000D520E0 /* Debug */,
-				6E5975A51D5AC79000D520E0 /* Release */,
+				6E5422441E28BA920099DC10 /* Debug */,
+				6E5422451E28BA920099DC10 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 6E5975781D5AC76B00D520E0 /* Project object */;
+	rootObject = 6E5422241E28BA920099DC10 /* Project object */;
 }

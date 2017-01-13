@@ -8,9 +8,6 @@
 
 #import "ESTabBar.h"
 
-#define ColorRGBA(r, g, b, a)               [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:a]
-#define ColorRGB(r, g, b)                   ColorRGBA((r), (g), (b), 1.0)
-
 @interface ESTabBar ()
 
 {
@@ -21,13 +18,11 @@
     CGFloat _sCG;
     CGFloat _sCB;
     
-    UIColor *_color;
-    UIColor *_sColor;
     
     NSMutableArray<NSString *> *_titles;
     NSMutableArray<UIButton *> *_items;
-    UIView *_bottomLine;
-    UIView *_contentView;
+    UIView *_lineView;
+    UIScrollView *_contentView;
 }
 
 @property (assign, nonatomic) NSInteger index;
@@ -36,21 +31,18 @@
 
 @implementation ESTabBar
 
-- (instancetype)initWithStyle:(ESTabBarStyle)style {
+- (instancetype)init {
     if (self = [super initWithFrame:CGRectZero]) {
-        _style = style;
-        if (style == ESTabBarStyleNormal) {
-            [self initNormalContentView];
-        }
-        else {
-            [self initScrollContentView];
-        }
-        _bottomLine = [[UIView alloc] init];
-        [_contentView addSubview:_bottomLine];
-        _items = [NSMutableArray array];
+        _contentView = [[UIScrollView alloc] init];
+        _contentView.showsHorizontalScrollIndicator = NO;
+        [self addSubview:_contentView];
         
-        [self setTintColorR:200 g:200 b:200];
-        [self setSelectedTintColorR:34 g:34 b:34];
+        _lineView = [[UIView alloc] init];
+        [_contentView addSubview:_lineView];
+        _items = [NSMutableArray array];
+
+        self.color = [UIColor colorWithWhite:200/255.0 alpha:1.0];
+        self.selectedColor = [UIColor colorWithWhite:34/255.0 alpha:1.0];
     }
     return self;
 }
@@ -89,19 +81,29 @@
         lineX = _items[index].frame.origin.x + (_items[index + 1].frame.origin.x - _items[index].frame.origin.x) * progress;
         lineWidth = _items[index].frame.size.width + (_items[index + 1].frame.size.width - _items[index].frame.size.width) * progress;
     }
-    _bottomLine.frame = CGRectMake(lineX, _bottomLine.frame.origin.y, lineWidth, _bottomLine.bounds.size.height);
+    _lineView.frame = CGRectMake(lineX, _lineView.frame.origin.y, lineWidth, _lineView.bounds.size.height);
     
     /**
      *  Items Color
      */
     if (contentOffset > _index) {
         if (progress == 0) {
-            [_items[index] setTitleColor:_sColor forState:UIControlStateNormal];
-            [_items[index-1] setTitleColor:_color forState:UIControlStateNormal];
+//            [_items[index] setTitleColor:self.selectedColor forState:UIControlStateNormal];
+//            if (_index != -1) {
+//                [_items[index-1] setTitleColor:self.color forState:UIControlStateNormal];
+//            }
+            [_items enumerateObjectsUsingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (idx == index) {
+                    [obj setTitleColor:self.selectedColor forState:UIControlStateNormal];
+                }
+                else {
+                    [obj setTitleColor:self.color forState:UIControlStateNormal];
+                }
+            }];
         }
         else {
-            UIColor *color1 = ColorRGB(_sCR + (_cR - _sCR) * progress, _sCG + (_cG - _sCG) * progress, _sCB + (_cB - _sCB) * progress);
-            UIColor *color2 = ColorRGB(_cR + (_sCR - _cR) * progress, _cG + (_sCG - _cG) * progress, _cB + (_sCB - _cB) * progress);
+            UIColor *color1 = [UIColor colorWithRed:_sCR + (_cR - _sCR) * progress green:_sCG + (_cG - _sCG) * progress blue:_sCB + (_cB - _sCB) * progress alpha:1.0];
+            UIColor *color2 = [UIColor colorWithRed:_cR + (_sCR - _cR) * progress green:_cG + (_sCG - _cG) * progress blue:_cB + (_sCB - _cB) * progress alpha:1.0];
             [_items[index] setTitleColor:color1 forState:UIControlStateNormal];
             [_items[index+1] setTitleColor:color2 forState:UIControlStateNormal];
         }
@@ -111,13 +113,21 @@
     }
     else if (contentOffset < _index) {
         progress = 1 - progress;
-        if (progress == 0) {
-            [_items[index] setTitleColor:_sColor forState:UIControlStateNormal];
-            [_items[index+1] setTitleColor:_color forState:UIControlStateNormal];
+        if (progress == 0 || progress == 1) {
+//            [_items[index] setTitleColor:self.selectedColor forState:UIControlStateNormal];
+//            [_items[index+1] setTitleColor:_color forState:UIControlStateNormal];
+            [_items enumerateObjectsUsingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (idx == index) {
+                    [obj setTitleColor:self.selectedColor forState:UIControlStateNormal];
+                }
+                else {
+                    [obj setTitleColor:self.color forState:UIControlStateNormal];
+                }
+            }];
         }
         else {
-            UIColor *color1 = ColorRGB(_sCR + (_cR - _sCR) * progress, _sCG + (_cG - _sCG) * progress, _sCB + (_cB - _sCB) * progress);
-            UIColor *color2 = ColorRGB(_cR + (_sCR - _cR) * progress, _cG + (_sCG - _cG) * progress, _cB + (_sCB - _cB) * progress);
+            UIColor *color1 = [UIColor colorWithRed:_sCR + (_cR - _sCR) * progress green:_sCG + (_cG - _sCG) * progress blue:_sCB + (_cB - _sCB) * progress alpha:1.0];
+            UIColor *color2 = [UIColor colorWithRed:_cR + (_sCR - _cR) * progress green:_cG + (_sCG - _cG) * progress blue:_cB + (_sCB - _cB) * progress alpha:1.0];
             [_items[index+1] setTitleColor:color1 forState:UIControlStateNormal];
             [_items[index] setTitleColor:color2 forState:UIControlStateNormal];
         }
@@ -131,13 +141,12 @@
         }
     }
     
-    if (_style == ESTabBarStyleScroll) {
-        UIScrollView *scrollView = (UIScrollView *)_contentView;
+    if (_contentView.contentSize.width > _contentView.bounds.size.width) {
         [self layoutIfNeeded];
-        if (scrollView.contentSize.width <= scrollView.bounds.size.width) {
+        if (_contentView.contentSize.width <= _contentView.bounds.size.width) {
             return;
         }
-        scrollView.contentOffset = CGPointMake((scrollView.contentSize.width - scrollView.bounds.size.width) * (contentOffset / (_items.count-1)), 0);
+        _contentView.contentOffset = CGPointMake((_contentView.contentSize.width - _contentView.bounds.size.width) * (contentOffset / (_items.count-1)), 0);
     }
     
 }
@@ -147,10 +156,10 @@
 }
 
 - (void)setCurrentIndex:(NSInteger)currentIndex {
-    _index = currentIndex;
-    [self settingItemsColor];
-    _contentOffset = currentIndex;
+    self.contentOffset = currentIndex;
 }
+
+#pragma mark - Title
 
 - (void)setTitles:(NSArray<NSString *> *)titles {
     _index = -1;
@@ -165,18 +174,21 @@
     [self setNeedsLayout];
 }
 
-- (void)setTintColorR:(CGFloat)r g:(CGFloat)g b:(CGFloat)b {
-    _cR = r; _cG = g; _cB = b;
-    _color = [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0];
+
+#pragma mark - Color
+
+- (void)setColor:(UIColor *)color {
+    _color = color;
+    [color getRed:&_cR green:&_cG blue:&_cB alpha:NULL];
     [self settingItemsColor];
+}
+- (void)setSelectedColor:(UIColor *)selectedColor {
+    _selectedColor = selectedColor;
+    [selectedColor getRed:&_sCR green:&_sCG blue:&_sCB alpha:NULL];
+    [self settingItemsColor];
+    _lineView.backgroundColor = selectedColor;
 }
 
-- (void)setSelectedTintColorR:(CGFloat)r g:(CGFloat)g b:(CGFloat)b {
-    _sCR = r; _sCG = g; _sCB = b;
-    _sColor = [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0];
-    [self settingItemsColor];
-    _bottomLine.backgroundColor = _sColor;
-}
 
 - (void)setSpacing:(CGFloat)spacing {
     _spacing = spacing;
@@ -190,16 +202,6 @@
 
 
 #pragma mark - View
-
-- (void)initNormalContentView {
-    _contentView = [[UIView alloc] init];
-    [self addSubview:_contentView];
-}
-- (void)initScrollContentView {
-    _contentView = [[UIScrollView alloc] init];
-    ((UIScrollView *)_contentView).showsHorizontalScrollIndicator = NO;
-    [self addSubview:_contentView];
-}
 
 - (void)createItemViews {
     for (NSInteger i=_items.count; i<_titles.count; i++) {
@@ -230,38 +232,48 @@
                                     self.bounds.size.width - _edgeInsets.left - _edgeInsets.right,
                                     self.bounds.size.height - _edgeInsets.top - _edgeInsets.bottom);
     [self layoutItems];
-    if (_index >= 0) {
-        _bottomLine.frame = CGRectMake(_items[_index].frame.origin.x, _contentView.bounds.size.height-2, _items[_index].frame.size.width, 2);
+    if (_index >= 0 && _index < _items.count) {
+        _lineView.frame = CGRectMake(_items[_index].frame.origin.x, _contentView.bounds.size.height-2, _items[_index].frame.size.width, 2);
     }
 }
 
 - (void)layoutItems {
-    if (_style == ESTabBarStyleNormal) {
-        CGFloat itemWidth = (_contentView.bounds.size.width - _spacing * (_items.count-1)) / _items.count;
-        [_items enumerateObjectsUsingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            obj.frame = CGRectMake((itemWidth + _spacing) * idx, 0, itemWidth, _contentView.bounds.size.height);
-        }];
+    __block CGFloat x = 0;
+    [_items enumerateObjectsUsingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *title = [obj titleForState:UIControlStateNormal];
+        CGFloat width = [title boundingRectWithSize:CGSizeMake(999, 16) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: obj.titleLabel.font} context:NULL].size.width;
+        obj.frame = CGRectMake(x, 0, width, _contentView.bounds.size.height);
+        x += width + _spacing;
+    }];
+    
+    CGFloat contentWidth = x - _spacing;
+    if (contentWidth > _contentView.bounds.size.width) {
+        _contentView.contentSize = CGSizeMake(contentWidth, 0);
     }
     else {
-        __block CGFloat x = 0;
+        x = (_contentView.bounds.size.width - contentWidth) / 2;
         [_items enumerateObjectsUsingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSString *title = [obj titleForState:UIControlStateNormal];
             CGFloat width = [title boundingRectWithSize:CGSizeMake(999, 16) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: obj.titleLabel.font} context:NULL].size.width;
             obj.frame = CGRectMake(x, 0, width, _contentView.bounds.size.height);
-            x += width + self.spacing;
+            x += width + _spacing;
         }];
-        ((UIScrollView *)_contentView).contentSize = CGSizeMake(x-_spacing, 0);
+        _contentView.contentSize = CGSizeZero;
     }
 }
 
+#pragma mark - get 
+
+
+#pragma mark - help
 
 - (void)settingItemsColor {
     [_items enumerateObjectsUsingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx == _index) {
-            [obj setTitleColor:[UIColor colorWithRed:_sCR/255.0 green:_sCG/255.0 blue:_sCB/255.0 alpha:1.0] forState:UIControlStateNormal];
+            [obj setTitleColor:self.selectedColor forState:UIControlStateNormal];
         }
         else {
-            [obj setTitleColor:[UIColor colorWithRed:_cR/255.0 green:_cG/255.0 blue:_cB/255.0 alpha:1.0] forState:UIControlStateNormal];
+            [obj setTitleColor:self.color forState:UIControlStateNormal];
         }
     }];
 }

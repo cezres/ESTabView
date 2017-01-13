@@ -1,9 +1,9 @@
 //
 //  AppDelegate.h
-//  ESTabView Demo
+//  ESTabView
 //
-//  Created by 翟泉 on 2016/8/10.
-//  Copyright © 2016年 云之彼端. All rights reserved.
+//  Created by 翟泉 on 2017/1/13.
+//  Copyright © 2017年 翟泉. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

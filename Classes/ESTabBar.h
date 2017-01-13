@@ -8,17 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSInteger, ESTabBarStyle) {
-    ESTabBarStyleNormal,
-    ESTabBarStyleScroll
-};
-
 
 @interface ESTabBar : UIView
 
 @property (assign, nonatomic) NSInteger currentIndex;
-
-@property (assign, nonatomic, readonly) ESTabBarStyle style;
 
 @property (assign, nonatomic) UIEdgeInsets edgeInsets;
 
@@ -28,14 +21,11 @@ typedef NS_ENUM(NSInteger, ESTabBarStyle) {
 
 @property (copy, nonatomic) void (^onClickItem)(NSInteger index);
 
+@property (strong, nonatomic) UIColor *color;
 
-- (instancetype)initWithStyle:(ESTabBarStyle)style;
+@property (strong, nonatomic) UIColor *selectedColor;
 
 - (void)setTitles:(NSArray<NSString *> *)titles;
-
-- (void)setTintColorR:(CGFloat)r g:(CGFloat)g b:(CGFloat)b;
-
-- (void)setSelectedTintColorR:(CGFloat)r g:(CGFloat)g b:(CGFloat)b;
 
 - (void)setItemTitle:(NSString *)title forIndex:(NSInteger)index;
 

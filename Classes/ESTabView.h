@@ -14,7 +14,12 @@
 @protocol ESTabViewDelegate <NSObject>
 
 @optional
-- (void)tabView:(ESTabView *)tabView didMoveToIndex:(NSInteger)index;
+
+- (void)tabView:(ESTabView *)tabView willDisplayView:(__kindof UIView *)view forItemIndex:(NSInteger)index;
+- (void)tabView:(ESTabView *)tabView willEndDisplayView:(__kindof UIView *)view forItemIndex:(NSInteger)index;
+
+- (void)tabView:(ESTabView *)tabView didDisplayView:(__kindof UIView *)view forItemIndex:(NSInteger)index;
+- (void)tabView:(ESTabView *)tabView didEndDisplayView:(__kindof UIView *)view forItemIndex:(NSInteger)index;
 
 @end
 
@@ -23,6 +28,8 @@
 
 @property (strong, nonatomic, readonly) ESTabBar *tabBar;
 
+@property (strong, nonatomic, readonly) UIScrollView *scrollView;
+
 @property (strong, nonatomic, readonly) NSArray<__kindof UIView *> *views;
 
 @property (assign, nonatomic, readonly) NSInteger currentIndex;
@@ -30,8 +37,6 @@
 @property (strong, nonatomic, readonly) __kindof UIView *currentContentView;
 
 @property (weak, nonatomic) id<ESTabViewDelegate> delegate;
-
-- (instancetype)initWithStyle:(ESTabBarStyle)style;
 
 - (void)setItemsWithViews:(NSArray<__kindof UIView *> *)views titles:(NSArray<NSString *> *)titles index:(NSInteger)index;
 
