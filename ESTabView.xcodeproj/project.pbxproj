@@ -18,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6E34A9D71E3061F00044C68E /* ESTabView.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = ESTabView.podspec; sourceTree = "<group>"; };
 		6E54222C1E28BA920099DC10 /* ESTabView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ESTabView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E5422301E28BA920099DC10 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6E5422321E28BA920099DC10 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -48,6 +49,7 @@
 		6E5422231E28BA920099DC10 = {
 			isa = PBXGroup;
 			children = (
+				6E34A9D71E3061F00044C68E /* ESTabView.podspec */,
 				6E5422461E28BAD70099DC10 /* Classes */,
 				6E54222E1E28BA920099DC10 /* ESTabView */,
 				6E54222D1E28BA920099DC10 /* Products */,
@@ -332,6 +334,7 @@
 				6E5422451E28BA920099DC10 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
